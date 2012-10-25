@@ -1,0 +1,26 @@
+{
+	"name": "fpipe",
+	"description": "A javascript function pipe for grafting a middleware pipeline over functions in nodejs.",
+	"version": "0.1.0",
+	"keywords": [
+		"pipe",
+		"pipeline",
+		"middleware"
+	],
+	"author": {
+		"name": "Phillip Clark",
+		"email": "phillip@flitbit.org"
+	},
+	"repository": { "type": "git", "url": "git://github.com/flitbit/fpipe.git" },
+	"main": "./lib/fpipe.js",
+	"directories": {
+		"test": "./test"
+	},
+	"dependencies" : {
+		"vows": ">=0.6.4",
+		"should": ">=1.2"
+	},
+	"scripts": {
+		"test": "vows --spec ./test/fpipe-tests.js"
+	}
+}
