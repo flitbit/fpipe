@@ -1,8 +1,7 @@
-# fpipe
-
 Node.js module for grafting a middleware pipeline over a target function.
 
-**fpipe** is a simple module that allows you to easily add a series of functions between a _source_ function and your _target_ callback. Each function in the series (middleware) is executed in turn, potentially modifying the _source's_ result, and ultimately, if no middleware throws an exception, your _target_ callback is invoked in the Node.js style.
+_fpipe_ is a simple module that allows you to easily add a series of functions between a _source_ function and a _target_ callback. 
+Each function in the series (middleware) is executed in turn, potentially modifying the _source's_ result, and ultimately, if no middleware throws an exception, the _target_ callback is invoked in the Node.js style.
 
 ### Simple Example
 
@@ -67,3 +66,13 @@ Tests are written using [vows](http://vowsjs.org/) & [should.js](https://github.
 ```
 npm test fpipe
 ```
+
+### API 
+
+The module exposes 3 items:
+
+* `create` - a factory for creating fpipes.
+* `log_sink` - a shared event emitter where any uncaught exception are exposed.
+* `version` - exposes the module's version.
+
+
