@@ -1,7 +1,7 @@
 {
 	"name": "fpipe",
 	"description": "A javascript function pipe for grafting a middleware pipeline over functions in nodejs.",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"keywords": [
 		"pipe",
 		"pipeline",
