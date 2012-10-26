@@ -1,14 +1,5 @@
-# fpipe
-
-Node.js module for grafting a middleware pipeline over a target function.
-
-**fpipe** is a simple module that allows you to easily add a series of functions between a _source_ function and your _target_ callback. Each function in the series (middleware) is executed in turn, potentially modifying the _source's_ result, and ultimately, if no middleware throws an exception, your _target_ callback is invoked in the Node.js style.
-
-### Simple Example
-
-```
 var util = require('util'),
-fpipe    = require('fpipe');
+fpipe    = require('../lib/fpipe');
 
 // Gets a random integer between 0 (zero) and max
 function randomWait(max) {
@@ -54,16 +45,3 @@ pipe.execute(function(err, res) {
 		console.log("Got a message: ".concat(res));
 	}
 });
-```
-
-### Install
-```
-npm install fpipe
-```
-
-### Tests
-Tests are written using [vows](http://vowsjs.org/) & [should.js](https://github.com/visionmedia/should.js/). If you've installed in a development environment you can use npm to run the tests.
-
-```
-npm test fpipe
-```
