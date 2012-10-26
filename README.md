@@ -77,7 +77,7 @@ An standard import of fpipe `var fpipe = require('fpipe')` is assumed in all of 
 
 #### `create`
 
-`create` is a factory method that results in a new pipe. 
+Constructs a new function pipe. 
 
 ``` javascript
 // Create a pipe without a source function...
@@ -92,3 +92,18 @@ var my = fpipe.create(function(callback) {
 	callback(null, { here_is: "a result" });
 });
 ```
+
+#### `Pipe`
+
+A function pipe derives from Node.js' EventEmitter and exposes the following interface:
+
+*Operations*
+
+* `use` - adds a function to the series of functions (middleware) that the pipe will execute.
+* `execute` - invokes the _source_ function, the middleware series, and ultimately the _target_ callback.
+* `source` - sets the pipe's _source_ function.
+* `clone` - clones the pipe, optionally changing it's _source_ function.
+
+*Events*
+
+* "uncaughtException" - occurs when the pipe encounters an uncaught exception. Generally speaking, this only occurs when your callback throws. Exceptions occurring during the series are given to your callback directly (as per the Node.js callback style).
