@@ -71,8 +71,8 @@ npm test fpipe
 
 The module exposes 3 items:
 
-* `create` - a factory for creating fpipes.
+* `create`   - a factory for creating fpipes.
 * `log_sink` - a shared event emitter where any uncaught exception are exposed.
-* `version` - exposes the module's version.
+* `version`  - exposes the module's version.
 
 
