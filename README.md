@@ -98,9 +98,14 @@ var my = fpipe.create(function(callback) {
 
 A function pipe derives from Node.js' EventEmitter and exposes the following interface:
 
+*Properties*
+
+* `_source` - the _source_ function over which the pipe will execute.
+* `_middleware` - an array containing the currently configured middleware on the pipe; this is the series of functions that will execute between the _source_ function and the _target_ callback.
+
 *Operations*
 
-* `use` - adds a function to the series of functions (middleware) that the pipe will execute.
+* `use` - adds a middleware function to the series of functions that the pipe will execute.
 * `execute` - invokes the _source_ function, the middleware series, and ultimately the _target_ callback.
 * `source` - sets the pipe's _source_ function.
 * `clone` - clones the pipe, optionally changing it's _source_ function.
@@ -108,3 +113,31 @@ A function pipe derives from Node.js' EventEmitter and exposes the following int
 *Events*
 
 * "uncaughtException" - occurs when the pipe encounters an uncaught exception. Generally speaking, this only occurs when your callback throws. Exceptions occurring during the series are given to your callback directly (as per the Node.js callback style).
+
+##### `Pipe.use`
+
+Adds a middleware function to the series of functions that the pipe will execute.
+
+*arguments*
+
+* `middleware` - a middleware function (described below).
+
+To be useful, any `middleware` function should take the following 3 arguments.
+
+* `res` - the result of the predicessor step in the middleware pipeline.
+* `next` - the next middleware step in the pipeline.
+* `end` - a function allowing the middleware to skip the rest of the pipeline.
+
+Example: 
+
+``` javascript
+var my = fpipe.create(function(callback) {
+	callback(null, { here_is: "a result" });
+});
+
+my.use(function(res, next, end) {
+	console.log(util.inspect(res));
+
+	next(null, res);
+});
+```
