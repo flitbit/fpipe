@@ -6,7 +6,7 @@ Node.js module for grafting a middleware pipeline over a target function.
 
 ### Simple Example
 
-```
+``` javascript
 var util = require('util'),
 fpipe    = require('fpipe');
 
