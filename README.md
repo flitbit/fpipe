@@ -1,10 +1,10 @@
 # Function Pipe
 
-A function pipe enables the management and execution of a series of functions between a _source function_ and a _target callback_. Each function in the series (often referred to as _middleware_) is executed in turn, potentially modifying the _source_'s result, and ultimately, the caller provided _target callback_ is invoked.
+A function pipe enables the management and execution of a series of operations between a _source function_ and a _target callback_. Each operation in the series (often referred to as _middleware_) is executed in turn, potentially modifying the _source_'s result, and ultimately, a caller provided _target callback_ is invoked.
 
 If you've used [node](http://nodejs.org) for a while you are probably familiar with the function pipe pattern; it is used by [connect](https://github.com/senchalabs/connect), [express](https://github.com/visionmedia/express), and [flatiron](https://github.com/flatiron) to name a few. The goal of the **fpipe** module is to extract the function pipe behavior common to these great frameworks and encapsulate it for the community's use.
 
-**fpipe** was designed such that executions of the pipeline are isolated from overlapping activity, including subsequent modifications to the pipe.
+**fpipe** ensures executions of the pipeline are isolated from overlapping activity, including subsequent modifications to the pipe. It is useful for layering over asynchronous functions when numerous simultaneous executions are anticipated.
 
 ## Installation
 ```
@@ -18,7 +18,7 @@ Tests are written using [vows](http://vowsjs.org/) & [should.js](https://github.
 npm test fpipe
 ```
 
-### Simple Example
+## Simple Example
 
 ``` javascript
 var util = require('util'),
