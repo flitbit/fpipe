@@ -67,9 +67,9 @@ Tests are written using [vows](http://vowsjs.org/) & [should.js](https://github.
 npm test fpipe
 ```
 
-### API 
+### Documentation
 
-The module exposes 3 items:
+An standard import of fpipe (`var fpipe = require('fpipe')`) will result in an object with the following public properties:
 
 * `create`   - a factory for creating fpipes.
 * `log_sink` - a shared event emitter where any uncaught exception are exposed.
