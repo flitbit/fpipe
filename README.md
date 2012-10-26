@@ -69,10 +69,11 @@ npm test fpipe
 
 ### Documentation
 
-An standard import of fpipe `var fpipe = require('fpipe')` is assumed in all of the code examples. This results in an object having the following public properties:
+An standard import of fpipe `var fpipe = require('fpipe')` is assumed in all of the code examples. The import results in an object having the following public properties:
 
 * `create`   - a factory for creating fpipes.
 * `log_sink` - a shared event emitter where any uncaught exception are exposed.
+* `Pipe` - the fpipe implementation class.
 * `version`  - exposes the module's version.
 
 #### `create`
