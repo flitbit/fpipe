@@ -122,22 +122,40 @@ Adds a middleware function to the series of functions that the pipe will execute
 
 * `middleware` - a middleware function (described below).
 
-To be useful, any `middleware` function should take the following 3 arguments.
+To be useful, any `middleware` function should take the following 2 arguments.
 
 * `res` - the result of the predicessor step in the middleware pipeline.
 * `next` - the next middleware step in the pipeline.
-* `end` - a function allowing the middleware to skip the rest of the pipeline.
 
-Example: 
+Well behaved middleware will always call `next`. The `next` function is a callback in the [Node.js style](http://nodemanual.org/latest/nodejs_dev_guide/working_with_callbacks.html):
+
+Logically, the `next` function behaves like this: 
+
+``` javascript
+function myCallback(err, res) {
+	if (err) {
+		// a prior function in the series resulted in error,
+		// stop the pipe and notify the target callback...
+		this.notifyTargetOfError(err);
+	} else {
+		// no error yet, continue processing...
+		this.performNextMiddleware(res);
+	}
+}
+```
+
+Example of well-behaved (albeit trivial), middleware function: 
 
 ``` javascript
 var my = fpipe.create(function(callback) {
 	callback(null, { here_is: "a result" });
 });
 
-my.use(function(res, next, end) {
+my.use(function(res, next) {
 	console.log(util.inspect(res));
 
 	next(null, res);
 });
 ```
+
+If a middleware function throws an error it will be caught by the Pipe, which will behave as if the middleware returned the error to `next`.
