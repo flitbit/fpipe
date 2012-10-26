@@ -1,7 +1,22 @@
-Node.js module for grafting a middleware pipeline over a target function.
+# Function Pipe
 
-_fpipe_ is a simple module that allows you to add a series of functions between a _source_ function and a _target_ callback. 
-Each function in the series (middleware) is executed in turn, potentially modifying the _source's_ result, and ultimately, if no middleware throws an exception, the _target_ callback is invoked in the Node.js style.
+A function pipe enables the management and execution of a series of functions between a _source function_ and a _target callback_. Each function in the series (often referred to as _middleware_) is executed in turn, potentially modifying the _source_'s result, and ultimately, the caller provided _target callback_ is invoked.
+
+If you've used [node](http://nodejs.org) for a while you are probably familiar with the function pipe pattern; it is used by [connect](https://github.com/senchalabs/connect), [express](https://github.com/visionmedia/express), and [flatiron](https://github.com/flatiron) to name a few. The goal of the **fpipe** module is to extract the function pipe behavior common to these great frameworks and encapsulate it for the community's use.
+
+**fpipe** was designed such that executions of the pipeline are isolated from overlapping activity, including subsequent modifications to the pipe.
+
+## Installation
+```
+npm install fpipe
+```
+
+## Testing
+Tests are written using [vows](http://vowsjs.org/) & [should.js](https://github.com/visionmedia/should.js/) (you may need to install them). If you've installed in a development environment you can use npm to run the tests.
+
+```
+npm test fpipe
+```
 
 ### Simple Example
 
@@ -54,24 +69,6 @@ pipe.execute(function(err, res) {
 	}
 });
 ```
-## Why
-
-While there are other general purpose pipeline modules available, notably [node-pipeline](https://github.com/tommydudebreaux/pipeline); these exhibited nuanced behavior that I wasn't fond of... so I decided to build a reusable module of my own for this purpose.
-
-In particular, I needed each execution of the pipeline to be isolated from overlapping activity, including subsequent modifications to the pipe. 
-
-## Install
-```
-npm install fpipe
-```
-
-## Tests
-Tests are written using [vows](http://vowsjs.org/) & [should.js](https://github.com/visionmedia/should.js/). If you've installed in a development environment you can use npm to run the tests.
-
-```
-npm test fpipe
-```
-
 ## Documentation
 
 An standard import of fpipe `var fpipe = require('fpipe')` is assumed in all of the code examples. The import results in an object having the following public properties:
