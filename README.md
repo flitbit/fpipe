@@ -69,10 +69,26 @@ npm test fpipe
 
 ### Documentation
 
-An standard import of fpipe (`var fpipe = require('fpipe')`) will result in an object with the following public properties:
+An standard import of fpipe `var fpipe = require('fpipe')` will result in an object having the following public properties:
 
 * `create`   - a factory for creating fpipes.
 * `log_sink` - a shared event emitter where any uncaught exception are exposed.
 * `version`  - exposes the module's version.
 
+#### create
 
+`create` is a factory method that results in a new pipe. 
+
+``` javascript
+// Create a pipe without a source function...
+var my = require('fpipe').create();
+```
+
+or
+
+``` javascript
+// Create a pipe over a source function...
+var my = require('fpipe').create(function(callback) { 
+	callback(null, { this_be: "a result" });
+});
+```
