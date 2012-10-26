@@ -1,6 +1,6 @@
 Node.js module for grafting a middleware pipeline over a target function.
 
-_fpipe_ is a simple module that allows you to easily add a series of functions between a _source_ function and a _target_ callback. 
+_fpipe_ is a simple module that allows you to add a series of functions between a _source_ function and a _target_ callback. 
 Each function in the series (middleware) is executed in turn, potentially modifying the _source's_ result, and ultimately, if no middleware throws an exception, the _target_ callback is invoked in the Node.js style.
 
 ### Simple Example
@@ -54,20 +54,25 @@ pipe.execute(function(err, res) {
 	}
 });
 ```
+## Why
 
-### Install
+While there are other general purpose pipeline modules available, notably [node-pipeline](https://github.com/tommydudebreaux/pipeline); these exhibited nuanced behavior that I wasn't fond of... so I decided to build a reusable module of my own for this purpose.
+
+In particular, I needed each execution of the pipeline to be isolated from overlapping activity, including subsequent modifications to the pipe. 
+
+## Install
 ```
 npm install fpipe
 ```
 
-### Tests
+## Tests
 Tests are written using [vows](http://vowsjs.org/) & [should.js](https://github.com/visionmedia/should.js/). If you've installed in a development environment you can use npm to run the tests.
 
 ```
 npm test fpipe
 ```
 
-### Documentation
+## Documentation
 
 An standard import of fpipe `var fpipe = require('fpipe')` is assumed in all of the code examples. The import results in an object having the following public properties:
 
@@ -76,7 +81,7 @@ An standard import of fpipe `var fpipe = require('fpipe')` is assumed in all of 
 * `Pipe` - the fpipe implementation class.
 * `version`  - exposes the module's version.
 
-#### `create`
+### `create`
 
 Constructs a new function pipe. 
 
@@ -94,7 +99,7 @@ var my = fpipe.create(function(callback) {
 });
 ```
 
-#### `Pipe`
+### `Pipe`
 
 A function pipe derives from Node.js' EventEmitter and exposes the following interface:
 
@@ -114,7 +119,7 @@ A function pipe derives from Node.js' EventEmitter and exposes the following int
 
 * "uncaughtException" - occurs when the pipe encounters an uncaught exception. Generally speaking, this only occurs when your callback throws. Exceptions occurring during the series are given to your callback directly (as per the Node.js callback style).
 
-##### `Pipe.use`
+#### `Pipe.use`
 
 Adds a middleware function to the series of functions that the pipe will execute.
 
