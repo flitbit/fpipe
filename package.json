@@ -1,9 +1,10 @@
 {
 	"name": "fpipe",
-	"description": "A javascript function pipe for grafting a middleware pipeline over functions in nodejs.",
-	"version": "0.1.1",
+	"description": "A module for grafting a function pipe (middleware) over other functions in nodejs.", 
+	"version": "0.1.2",
 	"keywords": [
 		"pipe",
+		"series",
 		"pipeline",
 		"middleware"
 	],
@@ -12,15 +13,28 @@
 		"email": "phillip@flitbit.org"
 	},
 	"repository": { "type": "git", "url": "git://github.com/flitbit/fpipe.git" },
-	"main": "./lib/fpipe.js",
+	"main": "./index.js",
 	"directories": {
+		"lib": "./lib",
 		"test": "./test"
 	},
 	"devDependencies" : {
-		"vows": ">=0.6.4",
-		"should": ">=1.2"
+    "should": {
+      "version": "1.2.0"
+    },
+    "vows": {
+      "version": "0.6.4",
+      "dependencies": {
+        "eyes": {
+          "version": "0.1.8"
+        },
+        "diff": {
+          "version": "1.0.4"
+        }
+      }
+		}
 	},
 	"scripts": {
-		"test": "vows --spec ./test/fpipe-tests.js"
+		"test": "vows --spec ./test/*"
 	}
 }
