@@ -25,8 +25,8 @@ pipe.execute(function(err, res) {
 	}
 });
 
-// Create another pipe (by cloning), and replace the source with
-// a source that requires an argument...
+// Create a clone, replacing the source with
+// a function that expects an argument...
 var pipe2 = pipe.clone(function(you, callback) {
 	// simulate some latency, then say hi...
 	setTimeout(function() {
@@ -34,8 +34,12 @@ var pipe2 = pipe.clone(function(you, callback) {
 	}, 1000);
 });
 
-// If our source takes an argument, pass the argument when you
-// execute the pipe and it is curried to the source...  
+// Since the source of second pipe takes an argument,
+// we pass it after our callback. Any arguments following
+// the callback are curried to the source in front of
+// the callback so you'll want to ensure that enough
+// arguments are passed (even if some are null) so that
+// the callback is positioned correctly.
 pipe2.execute(function(err, res) {
 	if (err) {
 		console.log('Got an error: ' + err);
