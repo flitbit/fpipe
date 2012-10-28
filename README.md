@@ -160,11 +160,11 @@ my.use(function(res, next) {
 });
 ```
 
-If a middleware function throws an error it will be caught by the Pipe, which will behave as if the middleware returned the error to `next`.
+If a middleware function throws an error it will be caught by the Pipe. The pipe will behave as if the middleware returned the error to `next`.
 
 #### `Pipe.execute`
 
-Executes the function pipe, starting with the `source` function that you provided, then continuing with each `middleware` in turn, and finally ending by invoking the callback given.
+Executes the function pipe, starting with the `source` function that you provided, then continuing with each `middleware` in turn, and finally ending by invoking the `callback` given.
 
 *arguments*
 
