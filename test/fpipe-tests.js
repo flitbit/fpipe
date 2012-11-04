@@ -142,4 +142,28 @@ vows.describe('Pipe').addBatch({
 			} 
 		} 
 	}
+}).addBatch({
+	'When working with a pipe and unreliable source...': {
+		topic: function() {
+			var self = this;
+			var p = pipe.create(function(you, callback) {
+				if (you && typeof you !== 'string') {
+					throw new TypeError('[String] you must be a string or null.');
+				}
+				var who = you || 'you';
+				if (callback) {
+					callback(null, 'Hello '.concat(who,'.'));
+				}
+			});
+			pipe.log_sink.on('uncaughtException', this.callback);
+			setTimeout(function() {
+				p.execute(function() { throw new Error('Kaboom!'); }, 'me');
+			}, 400);
+		},
+		'the uncaughtException event is fired on the log_sink': function(err, _) {
+			should.exist(err);
+			err.should.be.instanceOf(Error);
+			''.concat(err).should.include('Kaboom!');
+		} 
+	} 
 }).export(module);
