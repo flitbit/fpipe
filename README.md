@@ -126,7 +126,7 @@ Adds a middleware function to the series of functions that the pipe will execute
 
 To be useful, any `middleware` function should take the following 2 arguments.
 
-* `res` - the result of the predicessor step in the middleware pipeline.
+* `res` - the result of the predecessor step in the middleware pipeline.
 * `next` - the next middleware step in the pipeline.
 
 Well behaved middleware will always call `next`. The `next` function is a callback in the [Node.js style](http://nodemanual.org/latest/nodejs_dev_guide/working_with_callbacks.html):
