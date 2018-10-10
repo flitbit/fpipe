@@ -1,7 +1,7 @@
 {
   "name": "fpipe",
   "description": "A module for grafting a function pipe (middleware) over other functions in nodejs.",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "keywords": [
     "pipe",
     "series",
