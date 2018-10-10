@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "jest"
+  ],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "jest/no-focused-tests": 2,
+    "jest/no-identical-title": 2
+  }
+}

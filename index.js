@@ -1,1 +1,1 @@
-module.exports = require('./lib/fpipe');
+module.exports = require('./lib');
