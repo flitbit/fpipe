@@ -30,9 +30,22 @@
     "eslint": "^5.6.1",
     "eslint-plugin-jest": "^21.24.1",
     "jest": "^23.6.0",
+    "jest-junit-reporter": "^1.1.0",
     "nodemon": "^1.18.4"
   },
   "dependencies": {
     "is-promise": "^2.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testResultsProcessor": "./node_modules/jest-junit-reporter",
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageDirectory": ".coverage",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/examples/**"
+    ]
   }
 }

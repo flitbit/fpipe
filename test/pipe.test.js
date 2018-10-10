@@ -142,3 +142,108 @@ test('.process(...) passes args to the pipeline', async done => {
     done(err);
   }
 });
+
+test('.pipe(...) optionally project args downstream', async done => {
+  try {
+    const pipe = new Pipe((x, y) => [x * 2, y * 5], true)
+      .pipe(
+        (x, y) => [x + y, 1],
+        true
+      )
+      .pipe((x, y) => (x + y) * 2);
+    const res = await pipe.process(5, 2);
+    expect(res).toBe(42);
+    done();
+  } catch (err) {
+    done(err);
+  }
+});
+
+test('errors are propagated to the caller', async done => {
+  try {
+    const res = await new Pipe()
+      .pipe(() => log('click'))
+      .pipe(() => log('click'))
+      .pipe(() => {
+        throw new Error('Boom!');
+      })
+      .pipe(() => log('click'))
+      .pipe(() => log('click'))
+      .process();
+    expect(res).toBe(undefined);
+  } catch (err) {
+    expect(err.message).toBe('Boom!');
+    done();
+  }
+});
+
+test('.ctor() takes arrays', async done => {
+  try {
+    const pipe = new Pipe([
+      (x, y) => [x * 2, y * 5],
+      true,
+      (x, y) => [x + y, 1],
+      true,
+      (x, y) => (x + y) * 2
+    ]);
+    const res = await pipe.process(5, 2);
+    expect(res).toBe(42);
+    done();
+  } catch (err) {
+    done(err);
+  }
+});
+
+test('.ctor() args must contain steps, optionally followed by a boolean', async done => {
+  try {
+    const pipe = new Pipe(
+      new Pipe((x, y) => [x * 2, y * 5]),
+      true,
+      (x, y) => [x + y, 1],
+      true,
+      (x, y) => (x + y) * 2
+    );
+    const res = await pipe.process(5, 2);
+    expect(res).toBe(42);
+    done();
+  } catch (err) {
+    done(err);
+  }
+});
+
+test('.ctor() errors on invalid type', async done => {
+  try {
+    const pipe = new Pipe(
+      new Pipe((x, y) => [x * 2, y * 5]),
+      'blue',
+      (x, y) => [x + y, 1],
+      true,
+      (x, y) => (x + y) * 2
+    );
+    const res = await pipe.process(5, 2);
+    expect(res).toBe(42);
+  } catch (err) {
+    expect(err.message).toBe(
+      'Invalid pipeline; array must contain processing steps, each optionally followed by a boolean. Received blue in position 1.'
+    );
+    done();
+  }
+});
+
+test('.ctor() errors when array elements are incorrectly ordered', async done => {
+  try {
+    const pipe = new Pipe(
+      new Pipe((x, y) => [x * 2, y * 5]),
+      true,
+      true,
+      (x, y) => [x + y, 1]
+    );
+    const res = await pipe.process(5, 2);
+    expect(res).toBe(42);
+  } catch (err) {
+    expect(err.message).toBe(
+      'Invalid pipeline; array must contain processing steps, each optionally followed by a boolean. Received true in position 2.'
+    );
+    done();
+  }
+});
