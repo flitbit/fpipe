@@ -1,40 +1,38 @@
 {
-	"name": "fpipe",
-	"description": "A module for grafting a function pipe (middleware) over other functions in nodejs.", 
-	"version": "0.1.4",
-	"keywords": [
-		"pipe",
-		"series",
-		"pipeline",
-		"middleware"
-	],
-	"author": {
-		"name": "Phillip Clark",
-		"email": "phillip@flitbit.org"
-	},
-	"repository": { "type": "git", "url": "git://github.com/flitbit/fpipe.git" },
-	"main": "./index.js",
-	"directories": {
-		"lib": "./lib",
-		"test": "./test"
-	},
-	"devDependencies" : {
-    "should": {
-      "version": "1.2.0"
-    },
-    "vows": {
-      "version": "0.6.4",
-      "dependencies": {
-        "eyes": {
-          "version": "0.1.8"
-        },
-        "diff": {
-          "version": "1.0.4"
-        }
-      }
-		}
-	},
-	"scripts": {
-		"test": "vows --spec ./test/*"
-	}
+  "name": "fpipe",
+  "description": "A module for grafting a function pipe (middleware) over other functions in nodejs.",
+  "version": "0.1.4",
+  "keywords": [
+    "pipe",
+    "series",
+    "pipeline",
+    "middleware"
+  ],
+  "author": {
+    "name": "Phillip Clark",
+    "email": "phillip@flitbit.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/flitbit/fpipe.git"
+  },
+  "main": "./index.js",
+  "scripts": {
+    "preversion": "npm run test",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "test:watch": "nodemon --ext js,json,yml --exec \"npm test\"",
+    "lint": "eslint lib test",
+    "ci": "npm run test"
+  },
+  "devDependencies": {
+    "bluebird": "^3.5.2",
+    "eslint": "^5.6.1",
+    "eslint-plugin-jest": "^21.24.1",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4"
+  },
+  "dependencies": {
+    "is-promise": "^2.1.0"
+  }
 }
